@@ -31,12 +31,12 @@ export const SignupForm = ({ setPage }) => {
       <div>
         <TextField  variant="filled"
           type="password"
-          //name="password"
+          name="password"
           label="Password"
           placeholder="password"
         />
       </div>
-      <Button>Signup</Button>
+      <Button type='submit'>Signup</Button>
     </form>
   );
 };

@@ -1,6 +1,7 @@
 import React from "react";
 import { TextField, Button } from '@material-ui/core';
-
+//import { Grid, Paper } from '@material-ui/core';
+//import withStyles from "@material-ui/core/styles/withStyles";
 
 export const LoginForm = ({ setPage }) => {
   const onSubmit = e => {
@@ -20,7 +21,7 @@ export const LoginForm = ({ setPage }) => {
           placeholder="password"
         />
       </div>
-      <Button >Login</Button>
+      <Button type='submit'>Login</Button>
     </form>
   );
 };

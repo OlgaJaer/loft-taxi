@@ -1,10 +1,10 @@
 import React from "react";
 import "./App.css";
-import { Profile } from "./Profile/Profile";
-import { Login } from "./Login";
-import { Map } from "./Map/Map";
-import { Signup } from "./Signup";
-import { Header } from "./Shared/Header/Header";
+import { Profile } from "./components/Profile/Profile";
+import { Login } from "./components/Login";
+import { Map } from "./components/Map/Map";
+import { Signup } from "./components/Signup";
+import { Header } from "./components/Shared/Header/Header";
 
 const PAGES = {
   profile: () => <Profile />,
