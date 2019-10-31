@@ -1,14 +1,26 @@
-import React, {Component} from 'react';
-import './App.css';
+import React from "react";
+import "./App.css";
+import { Profile } from "./Profile/Profile";
+import { Login } from "./Login";
+import { Map } from "./Map/Map";
+import { Signup } from "./Signup";
+import { Header } from "./Shared/Header/Header";
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
+const PAGES = {
+  profile: () => <Profile />,
+  map: () => <Map />,
+  signup: setPage => <Signup setPage={setPage} />,
+  login: setPage => <Login setPage={setPage} />
+};
 
-      </div>
-    )
-  }
+function App() {
+  const [page, setPage] = React.useState("login");
+  return (
+    <>
+      <Header setPage={setPage} />
+      {PAGES[page](setPage)}
+    </>
+  );
 }
 
 export default App;
