@@ -1,21 +1,14 @@
-import React, {Component} from 'react'
-//import {Paper} from '@material-ui/core'
-//import {withstyle} from '@material-ui/styles'
+import React from "react";
+import { Paper } from "@material-ui/core";
+import { withStyles } from "@material-ui/styles";
 
-// const styles = theme => ({
-//     background: {
-        
-//     }
-// })
+const styles = () => ({
+  background: {
+    backgroundImage: `url(${"../../assets/images/bg.jpg"})`,
+    backgroundSize: "cover"
+  }
+});
 
-export class Background extends Component {
-    render() {
-        return (
-            <div>
-                
-            </div>
-        )
-    }
-}
-
-export default Background
+export const Background = withStyles(styles)(({ children, classes }) => {
+  return <Paper className={classes.background}>{children}</Paper>;
+});

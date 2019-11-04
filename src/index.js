@@ -4,12 +4,15 @@ import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import { theme } from "loft-taxi-mui-theme";
 import { ThemeProvider } from "@material-ui/core/styles";
+import { AuthProvider } from "./components/Auth/AuthContext";
 
 ReactDOM.render(
   <ThemeProvider theme={theme}>
-    <App />
+    <AuthProvider>
+      <App />
+    </AuthProvider>
   </ThemeProvider>,
-   document.getElementById('root')
+  document.getElementById("root")
 );
 
 serviceWorker.unregister();
