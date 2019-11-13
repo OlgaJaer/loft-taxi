@@ -8,7 +8,12 @@ import {
   Link
 } from "@material-ui/core";
 import withStyles from "@material-ui/core/styles/withStyles";
-import { AuthContext } from "../Auth/AuthContext";
+import { compose } from "redux";
+import { connect } from "react-redux";
+import { reduxForm, Field } from "redux-form";
+import { handleLoginSubmit } from "./actions";
+import { withRouter } from "react-router-dom";
+import { Link as RouterLink } from "react-router-dom";
 
 const styles = theme => ({
   header: {
@@ -27,18 +32,35 @@ const styles = theme => ({
   }
 });
 
-export const LoginForm = withStyles(styles)(({ classes, setPage }) => {
-  const { login } = React.useContext(AuthContext);
+const renderField = ({
+  input,
+  label,
+  meta: { touched, invalid, error },
+  helperText,
+  ...custom
+}) => (
+  <TextField
+    label={label}
+    placeholder={label}
+    error={touched && invalid}
+    helperText={(touched && error) || helperText}
+    {...input}
+    {...custom}
+  />
+);
 
-  const onSubmit = e => {
-    e.preventDefault();
-    login();
-    setPage("profile");
-  };
-
+export const LoginForm = compose(
+  withRouter,
+  connect(state => ({ loggedIn: state.loggedIn })),
+  reduxForm({
+    form: "LoginForm",
+    onSubmit: (values, dispatch) => dispatch(handleLoginSubmit())
+  }),
+  withStyles(styles)
+)(({ classes, handleSubmit }) => {
   return (
     <Paper className={classes.paper}>
-      <form onSubmit={onSubmit}>
+      <form onSubmit={handleSubmit}>
         <Grid container>
           <Grid item xs={12}>
             <Typography
@@ -55,11 +77,15 @@ export const LoginForm = withStyles(styles)(({ classes, setPage }) => {
               align="left"
             >
               Новый пользователь?{" "}
-              <Link onClick={() => setPage("signup")}>Зарегистрируйтесь</Link>
+              <Link component={RouterLink} to="/signup">
+                Зарегистрируйтесь
+              </Link>
             </Typography>
           </Grid>
           <Grid item xs={12}>
-            <TextField
+            <Field
+              className={classes.input}
+              component={renderField}
               name="username"
               type="username"
               label="Имя пользователя"
@@ -68,7 +94,9 @@ export const LoginForm = withStyles(styles)(({ classes, setPage }) => {
             />
           </Grid>
           <Grid item xs={12}>
-            <TextField
+            <Field
+              className={classes.input}
+              component={renderField}
               type="password"
               name="password"
               label="Пароль"

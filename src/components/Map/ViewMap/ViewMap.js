@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
+import { Header } from "../../Shared/Header";
 
 mapboxgl.accessToken =
   "pk.eyJ1Ijoib2xnYWphZWdlciIsImEiOiJjazJibzUxdHowNWIyM2lxdmw0cnIxdjR4In0.kPvxLQOUk9Kw6NZGTvWqQA";
@@ -31,9 +32,12 @@ class ViewMap extends Component {
     };
 
     return (
-      <div style={{ position: "relative", zIndex: -10 }}>
-        <div style={style} ref={el => (this.mapContainer = el)} />
-      </div>
+      <>
+        <Header />
+        <div style={{ position: "relative", zIndex: -10 }}>
+          <div style={style} ref={el => (this.mapContainer = el)} />
+        </div>
+      </>
     );
   }
 }

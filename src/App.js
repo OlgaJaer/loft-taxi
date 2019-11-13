@@ -1,26 +1,22 @@
 import React from "react";
 import "./App.css";
-import { Profile } from "./components/Profile/Profile";
+import { Switch, Route, Redirect } from "react-router-dom";
 import { Login } from "./components/Login";
+import { Profile } from "./components/Profile";
 import { Map } from "./components/Map/Map";
 import { Signup } from "./components/Signup";
-import { Header } from "./components/Shared/Header/Header";
+import { PrivateRoute } from "./PrivateRoute";
 
-const PAGES = {
-  profile: () => <Profile />,
-  map: () => <Map />,
-  signup: setPage => <Signup setPage={setPage} />,
-  login: setPage => <Login setPage={setPage} />
-};
-
-function App() {
-  const [page, setPage] = React.useState("login");
+export const App = () => {
   return (
-    <>
-      <Header setPage={setPage} />
-      {PAGES[page](setPage)}
-    </>
+    <Switch>
+      
+      <PrivateRoute path="/map" component={Map} />
+      <PrivateRoute path="/profile" component={Profile} />
+      <Route path="/login" exact component={Login} />
+      <Route path="/signup" component={Signup} />
+      <Redirect to="/map" />
+      {/* <Route render={()=> <h1 style={{color:'red', textAlign:'center'}}>404 not found</h1>} /> */}
+    </Switch>
   );
-}
-
-export default App;
+};

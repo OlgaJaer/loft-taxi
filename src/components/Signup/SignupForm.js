@@ -8,7 +8,12 @@ import {
   Link
 } from "@material-ui/core";
 import withStyles from "@material-ui/core/styles/withStyles";
-import { AuthContext } from "../Auth/AuthContext";
+import { compose } from "redux";
+import { connect } from "react-redux";
+import { reduxForm, Field } from "redux-form";
+import { withRouter } from "react-router-dom";
+import { handleLoginSubmit } from "../Login/actions"
+import {Link as RouterLink} from 'react-router-dom'
 
 const styles = theme => ({
   header: {
@@ -27,17 +32,36 @@ const styles = theme => ({
   }
 });
 
-export const SignupForm = withStyles(styles)(({ classes, setPage }) => {
-  const { login } = React.useContext(AuthContext);
-  const onSubmit = e => {
-    e.preventDefault();
-    login();
-    setPage("profile");
-  };
+const renderField = ({
+  input,
+  label,
+  meta: { touched, invalid, error },
+  helperText,
+  ...custom
+}) => (
+  <TextField
+    label={label}
+    placeholder={label}
+    error={touched && invalid}
+    helperText={(touched && error) || helperText}
+    {...input}
+    {...custom}
+  />
+);
+
+export const SignupForm = compose(
+  withRouter,
+  connect(state => ({ loggedIn: state.loggedIn })),
+  reduxForm({
+    form: "loginForm",
+    onSubmit: (values, dispatch) => dispatch(handleLoginSubmit())
+  }),
+  withStyles(styles)
+)(({ classes, handleSubmit }) => {
 
   return (
     <Paper className={classes.paper}>
-      <form onSubmit={onSubmit}>
+      <form onSubmit={handleSubmit}>
         <Grid container>
           <Grid item xs={12}>
             <Typography
@@ -54,12 +78,13 @@ export const SignupForm = withStyles(styles)(({ classes, setPage }) => {
               align="left"
             >
               Уже зарегистрированы?{" "}
-              <Link onClick={() => setPage("login")}>Войти</Link>
+              <Link component={RouterLink} to="/login" >Войти</Link>
             </Typography>
           </Grid>
           <Grid item xs={12}>
-            <TextField
+            <Field
               className={classes.input}
+              component={renderField}
               type="email"
               name="email"
               label="Адрес электронной почты"
@@ -69,8 +94,9 @@ export const SignupForm = withStyles(styles)(({ classes, setPage }) => {
             />
           </Grid>
           <Grid item xs={6}>
-            <TextField
+            <Field
               className={classes.input}
+              component={renderField}
               type="text"
               name="firstname"
               label="Имя"
@@ -80,8 +106,9 @@ export const SignupForm = withStyles(styles)(({ classes, setPage }) => {
             />
           </Grid>
           <Grid item xs={6}>
-            <TextField
+            <Field
               className={classes.input}
+              component={renderField}
               type="text"
               name="lastname"
               label="Фамилия"
@@ -91,8 +118,9 @@ export const SignupForm = withStyles(styles)(({ classes, setPage }) => {
             />
           </Grid>
           <Grid item xs={12}>
-            <TextField
+            <Field
               className={classes.input}
+              component={renderField}
               type="password"
               name="password"
               label="Пароль"
