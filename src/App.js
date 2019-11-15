@@ -10,12 +10,11 @@ import { PrivateRoute } from "./PrivateRoute";
 export const App = () => {
   return (
     <Switch>
-      
+      <Route path="/login" exact component={Login} />
       <PrivateRoute path="/map" component={Map} />
       <PrivateRoute path="/profile" component={Profile} />
-      <Route path="/login" exact component={Login} />
       <Route path="/signup" component={Signup} />
-      <Redirect to="/map" />
+      <Redirect exact from="/" to="/login" />
       {/* <Route render={()=> <h1 style={{color:'red', textAlign:'center'}}>404 not found</h1>} /> */}
     </Switch>
   );

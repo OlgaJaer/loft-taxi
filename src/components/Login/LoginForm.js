@@ -14,6 +14,7 @@ import { reduxForm, Field } from "redux-form";
 import { handleLoginSubmit } from "./actions";
 import { withRouter } from "react-router-dom";
 import { Link as RouterLink } from "react-router-dom";
+import validate from "./validate"
 
 const styles = theme => ({
   header: {
@@ -54,13 +55,15 @@ export const LoginForm = compose(
   connect(state => ({ loggedIn: state.loggedIn })),
   reduxForm({
     form: "LoginForm",
+    validate,
     onSubmit: (values, dispatch) => dispatch(handleLoginSubmit())
   }),
   withStyles(styles)
 )(({ classes, handleSubmit }) => {
   return (
     <Paper className={classes.paper}>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit}
+      >
         <Grid container>
           <Grid item xs={12}>
             <Typography

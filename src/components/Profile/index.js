@@ -3,6 +3,7 @@ import { Paper, Grid, Typography } from "@material-ui/core";
 import withStyles from "@material-ui/core/styles/withStyles";
 import { Background } from "../Shared/Background";
 import { Header } from "../Shared/Header";
+import { PaymentForm } from "./Profile";
 
 const styles = theme => ({
   paper: {
@@ -35,6 +36,7 @@ const ProfileView = ({ classes }) => (
             <Typography align="center" className={classes.subtitle}>
               Способ оплаты
             </Typography>
+            <PaymentForm />
           </Paper>
         </Grid>
       </Grid>
