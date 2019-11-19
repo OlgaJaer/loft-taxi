@@ -1,47 +1,43 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { createStore, combineReducers } from "redux";
+import { createStore, combineReducers, compose, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
-import { reducer as form } from "redux-form";
+//import { reducer as form } from "redux-form";
 import { App } from "./App";
 import { profileReducer as profile } from "./components/Profile/reducer";
-import { loginReducer as loggedIn } from "./components/Login/reducer";
-//import {handleActions} from "./components/Auth/reducer"
+import { authReducer as auth } from "./components/Auth/reducer";
 import { saveState, loadState } from "./localStorage";
 import * as serviceWorker from "./serviceWorker";
 import { theme } from "loft-taxi-mui-theme";
 import { ThemeProvider } from "@material-ui/core/styles";
 import CssBaseLine from "@material-ui/core/CssBaseline";
 import { BrowserRouter } from "react-router-dom";
-//import {authMiddleware} from "./components/Auth/middleware"
-import { authSuccess } from "./components/Auth/actions";
+import { authMiddleware } from "./components/Auth/middleware";
 import { MuiPickersUtilsProvider } from "@material-ui/pickers";
-import DateFnsUtils from '@date-io/date-fns';
+import DateFnsUtils from "@date-io/date-fns";
+//import { authSuccess } from "./components/Auth/actions";
 
 const persistedState = loadState();
 
 const rootReducer = combineReducers({
-  loggedIn,
+  //loggedIn,
+  auth,
   profile,
-  form
+  //form
 });
+
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const store = createStore(
   rootReducer,
   persistedState,
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  composeEnhancers(applyMiddleware(authMiddleware))
 );
-
-const token = localStorage.getItem("token");
-console.log(token);
-if (token) {
-  store.dispatch(authSuccess(token));
-}
 
 store.subscribe(() => {
   saveState({
     loggedIn: store.getState().loggedIn,
-    profile: store.getState().profile
+    profile: store.getState().profile,
   });
 });
 

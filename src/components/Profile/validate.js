@@ -8,7 +8,7 @@ export const validate = values => {
     }
   });
 
-  if (!/(^[A-Z]{1}[a-z]{1,14} [A-Z]{1}[a-z]{1,14}$)/i.test(values.cardName)) {
+  if (!/(^[A-Z]{1}[a-z]{1,24} [A-Z]{1}[a-z]{1,24}$)/i.test(values.cardName)) {
     errors.cardName = "Введите, как указано на карте";
   }
   if (values.cardNumber && values.cardNumber.replace(/\s/g, "").length !== 16) {

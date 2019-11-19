@@ -1,51 +1,31 @@
-// import { handleActions } from "redux-actions";
+import { combineReducers } from "redux";
+import { handleActions } from "redux-actions";
+import { authRequest, authSuccess, authFailure, logout } from "./actions";
 
-// import * as actions from "./actions";
+const isAuthorized = handleActions(
+  {
+    [authSuccess]: () => true,
+    [logout]: () => false
+  },
+  false
+);
 
-// export default handleActions(
-//   {
-//     [actions.authRequest](state) {
-//       return {
-//         ...state,
-//         isLoading: true,
-//         token: null,
-//         error: null,
-//         isAuthenticated: false
-//       };
-//     },
-//     [actions.authSuccess](state, { payload }) {
-//       if (localStorage.getItem("token") !== payload) {
-//         localStorage.setItem("token", payload);
-//       }
+const isLoading = handleActions(
+  {
+    [authRequest]: () => true,
+    [authSuccess]: () => false,
+    [authFailure]: () => false
+  },
+  false
+);
 
-//       return {
-//         ...state,
-//         isLoading: false,
-//         token: payload,
-//         error: null,
-//         isAuthenticated: true
-//       };
-//     },
-//     [actions.authFailure](state, { payload }) {
-//       return {
-//         ...state,
-//         isLoading: false,
-//         token: null,
-//         error: payload,
-//         isAuthenticated: false
-//       };
-//     },
-//     [actions.logout](state) {
-//       localStorage.removeItem("token");
+const authError = handleActions(
+  {
+    [authRequest]: () => "",
+    [authFailure]: (_state, action) => action.payload,
+    [authSuccess]: () => ""
+  },
+  ""
+);
 
-//       return {
-//         ...state,
-//         isLoading: false,
-//         token: null,
-//         error: null,
-//         isAuthenticated: false
-//       };
-//     }
-//   },
-//   { isLoading: false, token: null, error: null, isAuthenticated: false }
-// );
+export const authReducer= combineReducers({ isAuthorized, isLoading, authError });

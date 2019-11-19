@@ -8,9 +8,10 @@ import { connect } from "react-redux";
 import { handleProfileSubmit } from "./actions";
 import { compose } from "redux";
 import { Link } from "react-router-dom";
-//import { MCIcon } from "loft-taxi-mui-theme";
+import { MCIcon } from "loft-taxi-mui-theme";
 import { renderPicker } from "./renderPicker";
-import TextField from "@material-ui/core/TextField";
+import {renderField} from "..//Shared/renderField"
+
 import { validate } from "./validate";
 
 const cardNumber = value =>
@@ -46,27 +47,6 @@ const styles = theme => ({
   }
 });
 
-const renderField = ({
-  input,
-  label,
-  meta: { touched, invalid, error },
-  helperText,
-  ...custom
-}) => (
-  <TextField
-    label={label}
-    placeholder={label}
-    fullWidth
-    error={touched && invalid}
-		helperText={(touched && error) || helperText}
-		// InputLabelProps={{
-    //   shrink: true
-    // }}
-    {...input}
-    {...custom}
-  />
-);
-
 export const PaymentForm = compose(
   connect(state => ({
     initialValues: state.profile
@@ -80,10 +60,10 @@ export const PaymentForm = compose(
     }
   }),
   withStyles(styles)
-)(({ classes, handleSubmit, submitSucceeded, initialValues }) => {
+)(({ classes, handleSubmit, submitSucceeded}) => {
   const [selectedDate, handleDateChange] = React.useState(new Date());
 
-  console.log(selectedDate);
+  //console.log(selectedDate);
 
   return submitSucceeded ? (
     <Grid container spacing={2}>
@@ -111,7 +91,7 @@ export const PaymentForm = compose(
                   flexDirection="column"
                   justifyContent="space-around"
                 >
-                  {/* <MCIcon /> */}
+                  <MCIcon />
                   <Field
                     component={renderField}
                     required
