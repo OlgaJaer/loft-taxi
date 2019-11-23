@@ -14,9 +14,9 @@ export const renderField = ({
     fullWidth
     error={touched && invalid}
     helperText={(touched && error) || helperText}
-    InputLabelProps={{
-      shrink: true
-    }}
+    //InputLabelProps={{
+    //  shrink: true
+    //}}
     {...input}
     {...custom}
   />

@@ -3,19 +3,8 @@ import { Paper, Grid, Typography } from "@material-ui/core";
 import withStyles from "@material-ui/core/styles/withStyles";
 import { Background } from "../Shared/Background";
 import { Header } from "../Shared/Header";
-//import { PaymentForm } from "./Profile";
-
-const styles = theme => ({
-  paper: {
-    marginTop: theme.spacing(4),
-    marginBottom: theme.spacing(3),
-    padding: "44px 60px"
-  },
-  subtitle: {
-    color: "rgba(0, 0, 0, 0.54)",
-    marginBottom: 40
-  }
-});
+import  styles  from "./styles";
+import {PaymentForm} from "./Profile"
 
 const ProfileView = ({ classes }) => (
   <>
@@ -36,7 +25,7 @@ const ProfileView = ({ classes }) => (
             <Typography align="center" className={classes.subtitle}>
               Способ оплаты
             </Typography>
-            {/* <PaymentForm /> */}
+            <PaymentForm />
           </Paper>
         </Grid>
       </Grid>

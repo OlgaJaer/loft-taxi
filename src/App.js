@@ -4,7 +4,7 @@ import { Switch, Route, Redirect } from "react-router-dom";
 import { Login } from "./components/Login";
 import { Profile } from "./components/Profile";
 import { Map } from "./components/Map/Map";
-import { Signup } from "./components/Signup";
+import { Signup } from "./components/Signup/Signup";
 import { PrivateRoute } from "./PrivateRoute";
 
 export const App = () => {

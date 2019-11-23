@@ -6,13 +6,15 @@ import { Provider } from "react-redux";
 import { App } from "./App";
 import { profileReducer as profile } from "./components/Profile/reducer";
 import { authReducer as auth } from "./components/Auth/reducer";
-import { saveState, loadState } from "./localStorage";
+import { signUpReducer as signUp } from "./components/Signup/reducer";
+import { loadState, saveState } from "./localStorage";
 import * as serviceWorker from "./serviceWorker";
 import { theme } from "loft-taxi-mui-theme";
 import { ThemeProvider } from "@material-ui/core/styles";
 import CssBaseLine from "@material-ui/core/CssBaseline";
 import { BrowserRouter } from "react-router-dom";
 import { authMiddleware } from "./components/Auth/middleware";
+import { signUpMiddleware } from "./components/Signup/middleware";
 import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
 //import { authSuccess } from "./components/Auth/actions";
@@ -20,10 +22,9 @@ import DateFnsUtils from "@date-io/date-fns";
 const persistedState = loadState();
 
 const rootReducer = combineReducers({
-  //loggedIn,
+  signUp,
   auth,
-  profile,
-  //form
+  profile
 });
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
@@ -31,13 +32,17 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(
   rootReducer,
   persistedState,
-  composeEnhancers(applyMiddleware(authMiddleware))
+  composeEnhancers(
+    applyMiddleware(authMiddleware),
+    applyMiddleware(signUpMiddleware)
+  )
 );
 
 store.subscribe(() => {
   saveState({
-    loggedIn: store.getState().loggedIn,
-    profile: store.getState().profile,
+    signUp: store.getState().signUp,
+    auth: store.getState().auth,
+    profile: store.getState().profile
   });
 });
 

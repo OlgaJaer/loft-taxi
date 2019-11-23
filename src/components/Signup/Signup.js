@@ -1,27 +1,30 @@
 import React from "react";
-import { Redirect } from "react-router-dom";
-import { Button, Paper, Grid, Typography, Link, Box } from "@material-ui/core";
 import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
-import withStyles from "@material-ui/core/styles/withStyles";
-import { Background } from "../Shared/Background";
-import { Form, Field } from "react-final-form";
-import { Link as RouterLink } from "react-router-dom";
-import { renderField } from "..//Shared/renderField";
+import { Redirect, withRouter } from "react-router-dom";
 import { Logo } from "loft-taxi-mui-theme";
-import { isAuthorized, getErrors, isLoading } from "../Auth/selectors";
-import { authRequest } from "../Auth/actions";
-import validate from "./validate";
+import { Background } from "../Shared/Background";
+import { Button, Paper, Grid, Typography, Link, Box } from "@material-ui/core";
+import withStyles from "@material-ui/core/styles/withStyles";
+import { signUpRequest } from "./actions";
+import { Link as RouterLink } from "react-router-dom";
+import { Form, Field } from "react-final-form";
+import { isAuthorized, getErrors, isLoading } from "./selectors";
 import styles from "./styles";
+import validate from "../Shared/validate";
+import { renderField } from "../Shared/renderField";
 
-class LoginView extends React.PureComponent {
+class SignupView extends React.PureComponent {
   handleSubmit = values => {
-    const { authRequest } = this.props;
-    authRequest({ email: values.email, password: values.password });
+    const { signUpRequest } = this.props;
+    signUpRequest({
+      email: values.email,
+      password: values.password,
+      name: values.name,
+      surname: values.surname
+    });
   };
-
   render() {
-    const { classes, isAuthorized, isLoading, authError } = this.props;
+    const { classes, isAuthorized, authError } = this.props;
 
     return isAuthorized ? (
       <Redirect to="/map" />
@@ -41,7 +44,7 @@ class LoginView extends React.PureComponent {
           <Grid item xs={3}>
             <Paper className={classes.paper}>
               <Form
-                onSubmit={this.handleSubmit}
+                onSubmit={this.handleSubmit} 
                 validate={validate}
                 render={({ handleSubmit, values }) => (
                   <form onSubmit={handleSubmit}>
@@ -53,16 +56,16 @@ class LoginView extends React.PureComponent {
                           variant="h4"
                           align="left"
                         >
-                          Войти
+                          Регистрация
                         </Typography>
                         <Typography
                           className={classes.subheader}
                           component="p"
                           align="left"
                         >
-                          Новый пользователь?{" "}
-                          <Link component={RouterLink} to="/signup">
-                            Зарегистрируйтесь
+                          Уже зарегистрированы?{" "}
+                          <Link component={RouterLink} to="/login">
+                            Войти
                           </Link>
                         </Typography>
                       </Grid>
@@ -70,11 +73,12 @@ class LoginView extends React.PureComponent {
                         <Field
                           className={classes.input}
                           component={renderField}
-                          name="email"
                           type="email"
-                          label="Email"
+                          name="email"
+                          label="Адрес электронной почты"
                           color="secondary"
                           fullWidth
+                          required
                         />
                         {authError && (
                           <Box mt={2}>
@@ -83,6 +87,30 @@ class LoginView extends React.PureComponent {
                             </Typography>
                           </Box>
                         )}
+                      </Grid>
+                      <Grid item xs={6}>
+                        <Field
+                          className={classes.input}
+                          component={renderField}
+                          type="text"
+                          name="name"
+                          label="Имя"
+                          color="secondary"
+                          fullWidth
+                          required
+                        />
+                      </Grid>
+                      <Grid item xs={6}>
+                        <Field
+                          className={classes.input}
+                          component={renderField}
+                          type="text"
+                          name="surname"
+                          label="Фамилия"
+                          color="secondary"
+                          fullWidth
+                          required
+                        />
                       </Grid>
                       <Grid item xs={12}>
                         <Field
@@ -96,7 +124,6 @@ class LoginView extends React.PureComponent {
                       </Grid>
                       <Grid item xs={12} align="right">
                         <Button
-                          disabled={isLoading}
                           variant="contained"
                           color="primary"
                           type="submit"
@@ -116,11 +143,11 @@ class LoginView extends React.PureComponent {
   }
 }
 
-export const Login = connect(
+export const Signup = connect(
   state => ({
     isAuthorized: isAuthorized(state),
     authError: getErrors(state),
     isLoading: isLoading(state)
   }),
-  { authRequest }
-)(withRouter(withStyles(styles)(LoginView)));
+  { signUpRequest }
+)(withRouter(withStyles(styles)(SignupView)));

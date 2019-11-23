@@ -1,6 +1,6 @@
 export const validate = values => {
   const errors = {};
-  const requiredFields = ["cardName", "cardNumber", "expDate", "cvv"];
+  const requiredFields = ["cardName", "cardNumber", "expDate", "cvc"];
 
   requiredFields.forEach(field => {
     if (!values[field]) {
@@ -20,11 +20,11 @@ export const validate = values => {
   ) {
     errors.cardNumber = "Может содержать только цифры";
   }
-  if (values.cvv && isNaN(Number(values.cvv.replace(/\s/g, "")))) {
-    errors.cvv = "Может содержать только цифры";
+  if (values.cvc && isNaN(Number(values.cvc.replace(/\s/g, "")))) {
+    errors.cvc = "Может содержать только цифры";
   }
-  if (values.cvv && values.cvv.length !== 3) {
-    errors.cvv = "CVV состоит из 3 цифр";
+  if (values.cvc && values.cvc.length !== 3) {
+    errors.cvc = "CVV состоит из 3 цифр";
   }
   return errors;
 };
