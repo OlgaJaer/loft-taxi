@@ -2,9 +2,8 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { createStore, combineReducers, compose, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
-//import { reducer as form } from "redux-form";
 import { App } from "./App";
-import { profileReducer as profile } from "./components/Profile/reducer";
+import { profile } from "./components/Profile/userCardData/reducer";
 import { authReducer as auth } from "./components/Auth/reducer";
 import { signUpReducer as signUp } from "./components/Signup/reducer";
 import { loadState, saveState } from "./localStorage";
@@ -17,7 +16,6 @@ import { authMiddleware } from "./components/Auth/middleware";
 import { signUpMiddleware } from "./components/Signup/middleware";
 import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
-//import { authSuccess } from "./components/Auth/actions";
 
 const persistedState = loadState();
 

@@ -13,7 +13,6 @@ export const authMiddleware = store => next => action => {
           throw new Error(data.error);
         }
         
-        //const {token} = data
         store.dispatch(authSuccess(data));
       })
       .catch(({ message, error }) => {

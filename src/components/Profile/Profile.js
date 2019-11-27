@@ -3,11 +3,10 @@ import { Typography, Grid, Button } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import Box from "@material-ui/core/Box";
-//import { reduxForm, Field } from "redux-form";
 import { Form, Field } from "react-final-form";
 import { connect } from "react-redux";
-import { handleProfileSubmit } from "./actions";
-import { getProfileData } from "./selectors";
+import { handleProfileSubmit } from "./userCardData";
+import { getProfileData } from "./userCardData";
 import { Link } from "react-router-dom";
 import { MCIcon } from "loft-taxi-mui-theme";
 import { renderPicker } from "./renderPicker";
@@ -39,7 +38,6 @@ class Payment extends React.PureComponent {
   render() {
     const { classes, profileData } = this.props;
     const { isSubmit } = this.state;
-    //const [selectedDate, handleDateChange] = React.useState(new Date());
 
     return isSubmit ? (
       <Grid container spacing={2}>
@@ -89,18 +87,15 @@ class Payment extends React.PureComponent {
                           name="cardNumber"
                           label="Номер карты"
                           placeholder="0000 0000 0000 0000"
-                          maxLength="12"
-                          normalize={cardNumber}
+                          parse={cardNumber}
                           fullWidth
                         />
+
                         <Field
                           component={renderPicker}
-                          clearable
                           name="expiryDate"
                           required
-                          //value={selectedDate}
                           label="Срок действия"
-                          //onChange={handleDateChange}
                         />
                       </Box>
                     </Card>

@@ -24,7 +24,7 @@ export const validate = values => {
     errors.cvc = "Может содержать только цифры";
   }
   if (values.cvc && values.cvc.length !== 3) {
-    errors.cvc = "CVV состоит из 3 цифр";
+    errors.cvc = "CVC состоит из 3 цифр";
   }
   return errors;
 };

@@ -1,9 +1,10 @@
 import { handleProfileSubmit } from "./actions";
 import { handleActions } from "redux-actions";
 
-export const profileReducer = handleActions(
+export const profile = handleActions(
   {
-    [handleProfileSubmit]: (state, action) => action.payload
+    [handleProfileSubmit]: (_state, action) => action.payload
   },
   null
 );
+

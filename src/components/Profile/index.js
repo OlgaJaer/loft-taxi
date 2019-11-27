@@ -3,8 +3,8 @@ import { Paper, Grid, Typography } from "@material-ui/core";
 import withStyles from "@material-ui/core/styles/withStyles";
 import { Background } from "../Shared/Background";
 import { Header } from "../Shared/Header";
-import  styles  from "./styles";
-import {PaymentForm} from "./Profile"
+import styles from "./styles";
+import { PaymentForm } from "./Profile";
 
 const ProfileView = ({ classes }) => (
   <>
