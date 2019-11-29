@@ -21,7 +21,7 @@ class LoginView extends React.PureComponent {
   };
 
   render() {
-    const { classes, isAuthorized, isLoading, authError } = this.props;
+    const { classes, isAuthorized, authError } = this.props;
 
     return isAuthorized ? (
       <Redirect to="/map" />
@@ -96,7 +96,6 @@ class LoginView extends React.PureComponent {
                       </Grid>
                       <Grid item xs={12} align="right">
                         <Button
-                          disabled={isLoading}
                           variant="contained"
                           color="primary"
                           type="submit"

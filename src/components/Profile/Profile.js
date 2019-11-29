@@ -12,7 +12,7 @@ import { MCIcon } from "loft-taxi-mui-theme";
 import { renderPicker } from "./renderPicker";
 import { renderField } from "..//Shared/renderField";
 import styles from "./styles";
-import { validate } from "./validate";
+//import { validate } from "./validate";
 
 const cardNumber = value =>
   value
@@ -60,7 +60,7 @@ class Payment extends React.PureComponent {
     ) : (
       <Form
         onSubmit={this.handleSubmit}
-        validate={validate}
+        //validate={validate}
         initialValues={profileData}
         render={({ handleSubmit, value }) => (
           <form onSubmit={handleSubmit}>
