@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
 import { shallow } from "enzyme";
-import LoginForm from "./components/Login/LoginForm";
+import Login from "./components/Login";
 import renderer from "react-test-renderer";
 
 it("renders without crashing", () => {
@@ -13,10 +13,10 @@ it("renders without crashing", () => {
 
 it("render shallow ", () => {
   const wrapper = shallow(<App />);
-  expect(wrapper.contains(<LoginForm />)).toEquil(true);
+  expect(wrapper.contains(<Login />)).toEqual(true);
 });
 
 it("renders correctly", () => {
-  const tree = renderer.cteate(<App />).toJSON();
+  const tree = renderer.create(<App />).toJSON();
   expect(tree).toMatchSnapshot()
 });
